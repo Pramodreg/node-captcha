@@ -1,343 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<style>
-			body{
-				background-image: url('images/photo');
-				background-size: cover;
-			}
-			#reg-form{
-				height: 550px;
-				width: 500px;
-				background-color: #90EE90;
-				text-align: center;
-				position: absolute;
-				top: 30%;
-				left: 40%;
-				align-items: center;
-				border-radius: 8px;
-				opacity: 0.9;
-			}
-			#reg-form h1{
-				margin-top: 8px;
-				padding-top: 10px;
-				color: red;
-			}
-		    #reg-form input{
-				padding: 10px 8px;
-				border: 2px solid red;
-				border-radius: 8px;
-			}
-			#reg-form #bttn{
-				background-color: red;
-				color: white;
-				font-weight: bold;
-				margin-top: 20px;
-			}
-			#reg-form input:hover{
-                background-color: greenyellow;
-				transform: translateY(8px);
-				cursor: pointer;
-			}
-		</style>
-	</head>
-	<body>
-		
-		<form id="reg-form" onsubmit="myfun()">
-			<h1>Registration</h1>
-			<input type="text" autocomplete="off" id="username" placeholder="Username" /><br><br>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-image: url("images/photo");
+        background-size: cover;
+      }
+      #reg-form {
+        height: 550px;
+        width: 500px;
+        background-color: #90ee90;
+        text-align: center;
+        position: absolute;
+        top: 30%;
+        left: 40%;
+        align-items: center;
+        border-radius: 8px;
+        opacity: 0.9;
+      }
+      #reg-form h1 {
+        margin-top: 8px;
+        padding-top: 10px;
+        color: red;
+      }
+      #reg-form input {
+        padding: 10px 8px;
+        border: 2px solid red;
+        border-radius: 8px;
+      }
+      #reg-form #bttn {
+        background-color: red;
+        color: white;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+      #reg-form input:hover {
+        background-color: greenyellow;
+        transform: translateY(8px);
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="reg-form" onsubmit="myfun()">
+      <h1>Registration</h1>
+      <input
+        type="text"
+        autocomplete="off"
+        id="username"
+        placeholder="Username"
+      /><br /><br />
       <p id="usererror"></p>
-			<input type="password" autocomplete="off" id="password" placeholder="Password" /><br><br>
+      <input
+        type="password"
+        autocomplete="off"
+        id="password"
+        placeholder="Password"
+      /><br /><br />
       <p id="passerror"></p>
 
-	  <!-- strength code -->
-	  <div class="pw-strength">
-		<span style="width: 100%;">Weak</span>
-		<span></span>
-	  </div>
+      <!-- strength code -->
+      <div class="pw-strength">
+        <span style="width: 100%">Weak</span>
+        <span></span>
+      </div>
 
-	    <!-- captcha start -->
-		<div>
-			<div class="captcha-area">
-			  <!--start of the captcha code-->
-			  <div class="captcha-img" style=" position: relative;">
-				<img src="./images/captcha-bg.png" alt="Captch Background" style="height:80px; width:90%; border-radius: 7px; margin-top: 10px;"/>
-				<span class="captcha" style="position: absolute; left: 30%; top: 40%; font-size: 30px; letter-spacing: 12px;"></span>
-			  </div>
-			  <button class="reload-btn" style="margin:10px; padding:7px 8px; border-radius:7px;">Reload</button>
-			</div>
+      <!-- captcha start -->
+      <div>
+        <div class="captcha-area">
+          <!--start of the captcha code-->
+          <div class="captcha-img" style="position: relative">
+            <img
+              src="./images/captcha-bg.png"
+              alt="Captch Background"
+              style="
+                height: 80px;
+                width: 90%;
+                border-radius: 7px;
+                margin-top: 10px;
+              "
+            />
+            <span
+              class="captcha"
+              style="
+                position: absolute;
+                left: 30%;
+                top: 40%;
+                font-size: 30px;
+                letter-spacing: 12px;
+              "
+            ></span>
+          </div>
+          <button
+            class="reload-btn"
+            style="margin: 10px; padding: 7px 8px; border-radius: 7px"
+          >
+            Reload
+          </button>
+        </div>
 
-			<!-- <form action="#" class="input-area"> -->
-				<div class="input-area">
-			  <input
-				type="text"
-				placeholder="Enter captcha"
-				maxlength="6"
-				spellcheck="false"
-				required
-			  />
-			  <button class="check-btn">Check</button>
-			</div>
-			<!-- </form> -->
-	
-			<div class="status-text"></div>
-		  </div> <!--captcha end-->
+        <!-- <form action="#" class="input-area"> -->
+        <div class="input-area">
+          <input
+            type="text"
+            placeholder="Enter captcha"
+            maxlength="6"
+            spellcheck="false"
+            required
+          />
+          <button class="check-btn">Check</button>
+        </div>
+        <!-- </form> -->
 
-			<input type="submit" id="bttn" value="Submit Form" />
-		</form>
+        <div class="status-text"></div>
+      </div>
+      <!--captcha end-->
 
+      <input type="submit" id="bttn" value="Submit Form" />
+    </form>
 
+    <script>
+      const form = document.getElementById("reg-form");
+      form.addEventListener("submit", registerUser);
 
-		<script>
-			const form = document.getElementById('reg-form')
-			form.addEventListener('submit', registerUser)
+      async function registerUser(event) {
+        event.preventDefault();
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
 
-			async function registerUser(event) {
-				event.preventDefault()
-				const username = document.getElementById('username').value
-				const password = document.getElementById('password').value
+        const result = await fetch("/api/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            password,
+          }),
+        }).then((res) => res.json());
 
-				const result = await fetch('/api/register', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({
-						username,
-						password
-					})
-				}).then((res) => res.json())
+        // if (result.status === 'ok') {
+        // 	// everythign went fine
+        // 	alert('Success')
+        // } else {
+        // 	alert(result.error)
+        // }
+      }
 
-				// if (result.status === 'ok') {
-				// 	// everythign went fine
-				// 	alert('Success')
-				// } else {
-				// 	alert(result.error)
-				// }
-			}
-
-	
       let inp1 = document.getElementById("username");
-        let inp2 = document.getElementById("password");
-        let flag = 1;
+      let inp2 = document.getElementById("password");
+      let flag = 1;
 
-        function myfun(){
-            if(inp1.value == ""){
-                document.getElementById("usererror").innerHTML= "user name is empty";
-                flag = 0;
-            }else if(inp1.value.length < 5){
-                document.getElementById("usererror").innerHTML= "user name lenght must be 5 char";
-                flag = 0;
-            }else{
-                document.getElementById("usererror").innerHTML= "";
-                flag = 1;
-            }
-            if(inp2.value == ""){
-                document.getElementById("passerror").innerHTML= "password is empty";
-                flag = 0;
-            }else if(inp2.value.length < 5){
-                document.getElementById("passerror").innerHTML= "password length must be 5 digit";
-                flag = 0;
-            }else{
-                document.getElementById("passerror").innerHTML= "";
-                flag = 1;
-            }
-            if(flag){
-                return true;
-            }else{
-                return false;
-            }
+      function myfun() {
+        if (inp1.value == "") {
+          document.getElementById("usererror").innerHTML = "user name is empty";
+          flag = 0;
+        } else if (inp1.value.length < 5) {
+          document.getElementById("usererror").innerHTML =
+            "user name lenght must be 5 char";
+          flag = 0;
+        } else {
+          document.getElementById("usererror").innerHTML = "";
+          flag = 1;
         }
+        if (inp2.value == "") {
+          document.getElementById("passerror").innerHTML = "password is empty";
+          flag = 0;
+        } else if (inp2.value.length < 5) {
+          document.getElementById("passerror").innerHTML =
+            "password length must be 5 digit";
+          flag = 0;
+        } else {
+          document.getElementById("passerror").innerHTML = "";
+          flag = 1;
+        }
+        if (flag) {
+          location.replace("/login.html");
+          return true;
+        } else {
+          return false;
+        }
+      }
 
+      // captcha and strength js code start
+      const captcha = document.querySelector(".captcha"),
+        reloadBtn = document.querySelector(".reload-btn"),
+        inputField = document.querySelector(".input-area input"),
+        checkBtn = document.querySelector(".check-btn"),
+        statusTxt = document.querySelector(".status-text");
 
+      //storing all captcha characters in array
+      let allCharacters = [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "Y",
+        "Z",
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+      ];
+      function getCaptcha() {
+        for (let i = 0; i < 6; i++) {
+          //getting 6 random characters from the array
+          let randomCharacter =
+            allCharacters[Math.floor(Math.random() * allCharacters.length)];
+          captcha.innerText += ` ${randomCharacter}`; //passing 6 random characters inside captcha innerText
+        }
+      }
+      getCaptcha(); //calling getCaptcha when the page open
+      //calling getCaptcha & removeContent on the reload btn click
+      reloadBtn.addEventListener("click", () => {
+        removeContent();
+        getCaptcha();
+      });
 
+      checkBtn.addEventListener("click", (e) => {
+        e.preventDefault(); //preventing button from it's default behaviour
+        statusTxt.style.display = "block";
+        //adding space after each character of user entered values because I've added spaces while generating captcha
+        let inputVal = inputField.value.split("").join(" ");
+        if (inputVal == captcha.innerText) {
+          //if captcha matched
+          statusTxt.style.color = "#4db2ec";
+          statusTxt.innerText = "Nice! You don't appear to be a robot.";
+          setTimeout(() => {
+            //calling removeContent & getCaptcha after 4 seconds
+            removeContent();
+            getCaptcha();
+          }, 2000);
+        } else {
+          statusTxt.style.color = "#ff0000";
+          statusTxt.innerText = "Captcha not matched. Please try again!";
+        }
+      });
 
+      function removeContent() {
+        inputField.value = "";
+        captcha.innerText = "";
+        statusTxt.style.display = "none";
+      }
 
-		// captcha and strength js code start
-		const captcha = document.querySelector(".captcha"),
-  reloadBtn = document.querySelector(".reload-btn"),
-  inputField = document.querySelector(".input-area input"),
-  checkBtn = document.querySelector(".check-btn"),
-  statusTxt = document.querySelector(".status-text");
-
-//storing all captcha characters in array
-let allCharacters = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-];
-function getCaptcha() {
-  for (let i = 0; i < 6; i++) {
-    //getting 6 random characters from the array
-    let randomCharacter =
-      allCharacters[Math.floor(Math.random() * allCharacters.length)];
-    captcha.innerText += ` ${randomCharacter}`; //passing 6 random characters inside captcha innerText
-  }
-}
-getCaptcha(); //calling getCaptcha when the page open
-//calling getCaptcha & removeContent on the reload btn click
-reloadBtn.addEventListener("click", () => {
-  removeContent();
-  getCaptcha();
-});
-
-checkBtn.addEventListener("click", (e) => {
-  e.preventDefault(); //preventing button from it's default behaviour
-  statusTxt.style.display = "block";
-  //adding space after each character of user entered values because I've added spaces while generating captcha
-  let inputVal = inputField.value.split("").join(" ");
-  if (inputVal == captcha.innerText) {
-    //if captcha matched
-    statusTxt.style.color = "#4db2ec";
-    statusTxt.innerText = "Nice! You don't appear to be a robot.";
-    setTimeout(() => {
-      //calling removeContent & getCaptcha after 4 seconds
-      removeContent();
-      getCaptcha();
-    }, 2000);
-  } else {
-    statusTxt.style.color = "#ff0000";
-    statusTxt.innerText = "Captcha not matched. Please try again!";
-  }
-});
-
-function removeContent() {
-  inputField.value = "";
-  captcha.innerText = "";
-  statusTxt.style.display = "none";
-}
-
-// password strength code start
-function getPassword(password) {
-  let s = 0;
-  if (password.length > 6) {
-    s++;
-  }
-  if (password.length > 10) {
-    s++;
-  }
-  if (/[A-Z]/.test(password)) {
-    s++;
-  }
-  if (/[0-9]/.test(password)) {
-    s++;
-  }
-  if (/[^A-Za-z0-9]/.test(password)) {
-    s++;
-  }
-  return s;
-}
-document           
-  .querySelector("#reg-form #password")
-  .addEventListener("focus", function () {
-    document.querySelector("#reg-form .pw-strength").style.display = "block";
-  });
-document
-  .querySelector("#reg-form .pw-display-toggle-btn")
-  .addEventListener("click", function () {
-    let el = document.querySelector("#reg-form .pw-display-toggle-btn");
-    if (el.classList.contains("active")) {
+      // password strength code start
+      function getPassword(password) {
+        let s = 0;
+        if (password.length > 6) {
+          s++;
+        }
+        if (password.length > 10) {
+          s++;
+        }
+        if (/[A-Z]/.test(password)) {
+          s++;
+        }
+        if (/[0-9]/.test(password)) {
+          s++;
+        }
+        if (/[^A-Za-z0-9]/.test(password)) {
+          s++;
+        }
+        return s;
+      }
       document
         .querySelector("#reg-form #password")
-        .setAttribute("type", "password");
-      el.classList.remove("active");
-    } else {
+        .addEventListener("focus", function () {
+          document.querySelector("#reg-form .pw-strength").style.display =
+            "block";
+        });
+      document
+        .querySelector("#reg-form .pw-display-toggle-btn")
+        .addEventListener("click", function () {
+          let el = document.querySelector("#reg-form .pw-display-toggle-btn");
+          if (el.classList.contains("active")) {
+            document
+              .querySelector("#reg-form #password")
+              .setAttribute("type", "password");
+            el.classList.remove("active");
+          } else {
+            document
+              .querySelector("#reg-form #password")
+              .setAttribute("type", "text");
+            el.classList.add("active");
+          }
+        });
+      //  start of the strength checking and feedback code...!
+
       document
         .querySelector("#reg-form #password")
-        .setAttribute("type", "text");
-      el.classList.add("active");
-    }
-  });
-//  start of the strength checking and feedback code...!
-
-document
-  .querySelector("#reg-form #password")
-  .addEventListener("keyup", function (e) {
-    let password = e.target.value;
-    let strength = getPassword(password);
-    let passwordStrengthSpans = document.querySelectorAll(
-      "#reg-form .pw-strength span"
-    );
-    strength = Math.max(strength, 1);
-    passwordStrengthSpans[1].style.width = strength * 20 + "%";
-    if (strength < 2) {
-      passwordStrengthSpans[0].innerText = "Weak";
-      passwordStrengthSpans[0].style.color = "#111";
-      passwordStrengthSpans[1].style.background = "#d13636";
-    } else if (strength >= 2 && strength <= 4) {
-      passwordStrengthSpans[0].innerText = "Medium";
-      passwordStrengthSpans[0].style.color = "#111";
-      passwordStrengthSpans[1].style.background = "#e6da44";
-    } else {
-      passwordStrengthSpans[0].innerText = "Strong";
-      passwordStrengthSpans[0].style.color = "#fff";
-      passwordStrengthSpans[1].style.background = "#20a820";
-    }
-  });
-
-  </script>
-	</body>
+        .addEventListener("keyup", function (e) {
+          let password = e.target.value;
+          let strength = getPassword(password);
+          let passwordStrengthSpans = document.querySelectorAll(
+            "#reg-form .pw-strength span"
+          );
+          strength = Math.max(strength, 1);
+          passwordStrengthSpans[1].style.width = strength * 20 + "%";
+          if (strength < 2) {
+            passwordStrengthSpans[0].innerText = "Weak";
+            passwordStrengthSpans[0].style.color = "#111";
+            passwordStrengthSpans[1].style.background = "#d13636";
+          } else if (strength >= 2 && strength <= 4) {
+            passwordStrengthSpans[0].innerText = "Medium";
+            passwordStrengthSpans[0].style.color = "#111";
+            passwordStrengthSpans[1].style.background = "#e6da44";
+          } else {
+            passwordStrengthSpans[0].innerText = "Strong";
+            passwordStrengthSpans[0].style.color = "#fff";
+            passwordStrengthSpans[1].style.background = "#20a820";
+          }
+        });
+    </script>
+  </body>
 </html>
-
